@@ -28,6 +28,10 @@ public class Document
         else
             return null;
     }
+    public string[] Replacements()
+    {
+        return replacements.Keys.ToArray();
+    }
     public Task Initialize()
     {
         List<WhatToReplace> result = new();

@@ -3,13 +3,16 @@
 namespace GenerateContractObjects;
 public class DocumentList
 {
-    private string? location;
+    public string? location;
     private string[]? Documents;
     public long Count()
     {
         return Documents?.LongLength??0; 
     }
-
+    public string[]? FindDocuments()
+    {
+        return Documents;
+    }
     public Document[]? FindDocument(string name)
     {
         ArgumentNullException.ThrowIfNullOrEmpty(name);
