@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>GenerateContractObjects</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+	<PropertyGroup>
+		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="docs\readme.md" />
+	  <None Remove="docs\CONTRACT_DE_COMODAT_SEDIU_SOCIAL.docx" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Include="docs\CONTRACT_DE_COMODAT_SEDIU_SOCIAL.docx">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="docs\readme.md">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="DocumentFormat.OpenXml" Version="2.19.0" />
+	</ItemGroup>
+
+</Project>
