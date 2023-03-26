@@ -34,5 +34,6 @@ app.UseStaticFiles();
 
 app.MapControllers();
 app.UseBlocklyAutomation();
+app.MapFallbackToFile("{*path:nonfile}", "/index.html");
 
 app.Run();
