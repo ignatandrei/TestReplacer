@@ -33,7 +33,7 @@ jobs:
           cd src
           cd GenerateContract
           cd GenerateContractWebAPI
-          cd dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+          dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
