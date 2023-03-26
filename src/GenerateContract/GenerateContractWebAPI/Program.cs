@@ -21,7 +21,8 @@ app.UseBlocklyUI(app.Environment);
 
 app.UseSwagger();
 app.UseSwaggerUI();
-
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 //app.UseHttpsRedirection();
 

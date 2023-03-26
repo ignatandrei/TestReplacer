@@ -15,6 +15,7 @@ public class Document
         var comparer = StringComparer.OrdinalIgnoreCase;
         replacements = new (comparer);
     }
+
     public string Location { get; }
     private Dictionary<string,WhatToReplace> replacements { get; set; }
     public int CountReplacements()
