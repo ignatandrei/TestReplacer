@@ -36,7 +36,18 @@ export class DocumentSingleComponent implements OnInit{
     });
   }
   public Save(): void {
-    this.contractService.saveReplacements(this.NameContract,this.replacements).subscribe((it) => {
+    this.contractService.saveReplacements(this.NameContract,this.replacements).subscribe((response: any)  => {
+
+      
+        let dataType = response.type;
+        let binaryData = [];
+        binaryData.push(response);
+        let downloadLink = document.createElement('a');
+        downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
+        downloadLink.setAttribute('download', this.NameContract+'.docx');
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+    
     });
 
   }
