@@ -26,7 +26,7 @@ jobs:
         run: |
           cd src
           cd GenerateContract
-          cd dotnet build --configuration Release
+          dotnet build
 
       - name: dotnet publish
         run: |
