@@ -1,0 +1,26 @@
+<p>List of documents</p>
+
+Number of documents: {{contracts.length}}
+
+<ul class="heroes">
+    <li *ngFor="let hero of contracts">
+        <button type="button"
+        (click)="Load(hero)">Load {{hero.DisplayName}}</button>
+    </li>
+  </ul>
+
+
+  <div >
+    <table>
+        <h1>Contracts for {{NameContract}}</h1>
+        <tr><td>Nr</td><td>Name</td><td>Value</td></tr>
+
+        <tr *ngFor="let item of replacements.keys();let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item}}</td>
+            <td><input   (keyup)="onChangeRep($event,item)" value="{{replacements.get(item)}}" placeholder="add value"/></td>
+        </tr>
+    </table>
+
+    <button type="button" (click)="Save()">Save</button>
+  </div>

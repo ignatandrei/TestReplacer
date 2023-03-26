@@ -12,9 +12,11 @@ builder.Services.AddTransient<DocumentList>(sp =>
     d.InitializeFromHdd("docs");
     return d;
 });
+builder.Services.AddCors();
 builder.Services.AddProblemDetails();
 var app = builder.Build();
 
+app.UseCors(it => it.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 app.UseStatusCodePages();
 app.UseExceptionHandler();
 app.UseBlocklyUI(app.Environment);
