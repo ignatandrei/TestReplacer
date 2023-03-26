@@ -12,9 +12,11 @@ builder.Services.AddTransient<DocumentList>(sp =>
     d.InitializeFromHdd("docs");
     return d;
 });
-
+builder.Services.AddProblemDetails();
 var app = builder.Build();
 
+app.UseStatusCodePages();
+app.UseExceptionHandler();
 app.UseBlocklyUI(app.Environment);
 
 // Configure the HTTP request pipeline.
