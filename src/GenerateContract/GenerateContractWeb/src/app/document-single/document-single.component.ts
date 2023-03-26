@@ -65,7 +65,7 @@ export class DocumentSingleComponent implements OnInit{
       .subscribe((it) => {
         for (let index = 0; index < it.length; index++) {
           const element = it[index];
-          var defValue = ''+environment.production;
+          var defValue = '';
           if(!environment.production){
             defValue = 'please replace ' + element;
           }
