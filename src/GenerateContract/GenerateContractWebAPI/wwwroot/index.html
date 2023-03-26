@@ -8,11 +8,11 @@
     <h1> Doc Replacer v1</h1>
     <div>
         <label>NUME Contractant</label>
-        <input type="text" id="NUME_Contractant" />
+        <input type="text" id="NUME_Contractant" value="Andrei"/>
     </div>
     <div>
         <label>DataNastere Contractant</label>
-        <input type="text" id="DataNastere_Contractant" />
+        <input type="text" id="DataNastere_Contractant" value="TestDataNastere"/>
     </div>
 
     <button onclick="save()">Save</button>
@@ -21,7 +21,42 @@
         function save() {
             var nume = document.getElementById("NUME_Contractant").value;
             var data = document.getElementById("DataNastere_Contractant").value;
-            window.alert('nume' + nume);
+            //window.alert('nume' + nume);
+            var obj = [
+                {
+                item1: "NUME_Contractant",
+                item2: nume
+                },
+                {
+                    item1: "DataNastere_Contractant",
+                    item2: data
+                },
+
+            ]
+            var url = "/api/DocReplacer/ReplaceData?fileName=comodat";
+            fetch(url, {
+                method: 'post',
+                headers: {
+                    "Content-Type": "application/json",
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(obj),
+            })
+                //.then(res => res.blob())
+                //.then(blob => {
+                //    var file = window.URL.createObjectURL(blob);
+                //    window.location.assign(file);
+                //});
+
+                .then(function (t) {
+                    return t.blob().then((b) => {
+                        var a = document.createElement("a");
+                        a.href = URL.createObjectURL(b);
+                        a.setAttribute("download", "CONTRACT_DE_COMODAT_SEDIU_SOCIAL.docx");
+                        a.click();
+                    }
+                    )
+                })    ;
         }
     </script>
 </body>
