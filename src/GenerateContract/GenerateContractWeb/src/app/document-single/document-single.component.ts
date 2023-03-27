@@ -19,7 +19,8 @@ export class DocumentSingleComponent implements OnInit{
   public contracts: Contract[] = [];
   public NameContract: string = '';
   public replacements: Map<string, string> = new Map<string, string>();
-  
+  public isLoading :boolean=false;
+  public errMessage:string='';
   constructor(private contractService: ContractData) { }
 
   ngOnInit(): void {
@@ -58,11 +59,16 @@ export class DocumentSingleComponent implements OnInit{
   public replArray():string[] {
     return Array.from(this.replacements.keys());
   }
+
   public Load(contract: Contract): void {
+    this.errMessage='';
+    this.isLoading=true;
     this.NameContract = contract.DisplayName;
     this.replacements.clear();
     this.contractService.getDocumentReplace(contract.DisplayName)
-      .subscribe((it) => {
+      .subscribe(
+        {
+        next: (it) => {
         for (let index = 0; index < it.length; index++) {
           const element = it[index];
           var defValue = '';
@@ -72,7 +78,23 @@ export class DocumentSingleComponent implements OnInit{
           
           this.replacements.set(element, defValue);
         }
-      });
+      },
+      error: (err) => {
+        console.log(err);
+
+        var detail='';
+        if(err  && err.error && err.error.detail)
+          detail  =err.error.detail??'';
+
+        this.errMessage="error loading" + this.NameContract + "=>" + detail;
+        window.alert("error \r\n"+ detail);
+        this.isLoading=false;
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    }
+      );
   }
 
 }

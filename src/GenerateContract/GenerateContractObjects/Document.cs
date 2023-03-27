@@ -48,7 +48,7 @@ public class Document
             var item = arr[i];
             var index = item.IndexOf("!@");
             if (index < 1)
-                throw new ApplicationException("cannot parse doc");
+                throw new ApplicationException("not correct @! with !@ . Please verify "+ item);
             
             result.Add(new WhatToReplace(item.Substring(0, index)));
         }

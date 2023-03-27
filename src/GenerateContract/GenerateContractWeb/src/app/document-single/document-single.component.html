@@ -3,16 +3,20 @@
 Number of documents: {{contracts.length}}
 
 <ul class="heroes">
-    <li *ngFor="let hero of contracts">
-        <button type="button"
-        (click)="Load(hero)">Load {{hero.DisplayName}}</button>
+    <li *ngFor="let contract of contracts">
+        <button [disabled]="isLoading" type="button"
+        (click)="Load(contract)">
+        
+        Load {{contract.DisplayName}}</button>
+        <br />
     </li>
   </ul>
 
 
-  <div >
-    <table>
-        <h1>Contracts for {{NameContract}}</h1>
+  <div  >
+    <h1>{{isLoading? "!Please Wait to load !" +NameContract : "Contracts for "+NameContract}}</h1>
+    <h1 *ngIf="errMessage.length>1">>{{errMessage   }}</h1>
+    <table *ngIf="!isLoading">
         <tr><td>Nr</td><td>Name</td><td>Value</td></tr>
 
         <tr *ngFor="let item of replacements.keys();let i = index">
@@ -24,3 +28,6 @@ Number of documents: {{contracts.length}}
 
     <button type="button" (click)="Save()">Save</button>
   </div>
+
+
+  <footer>Please contact ignat.andrei@gmail.com</footer>

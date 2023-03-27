@@ -1,5 +1,6 @@
 ﻿using GenerateContractObjects;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -19,15 +20,22 @@ namespace GenerateContractWebAPI.Controllers
         }
 
         [HttpGet("{fileName}")]
-        public async Task<string[]> ReplacerNames(string fileName)
+        public async Task<Results<Ok<string[]>, ProblemHttpResult>> ReplacerNames(string fileName)
         {
-            var doc = dl.FindDocument(fileName);
-            if(doc == null || doc.Length != 1)
-                throw new ArgumentException("more than 1");
+            try
+            {
+                var doc = dl.FindDocument(fileName);
+                if (doc == null || doc.Length != 1)
+                    throw new ArgumentException("more than 1");
 
-            var selected = doc.First();
-            await selected.Initialize();
-            return selected.Replacements();
+                var selected = doc.First();
+                await selected.Initialize();
+                return TypedResults.Ok( selected.Replacements());
+            }
+            catch(ApplicationException ex)
+            {
+                return TypedResults.Problem( ex.Message );
+            }
         }
         [HttpPost("")]
         public async Task<IActionResult> ReplaceData([FromQuery]string fileName, [FromBody]Tuple<string, string>[]? values)
