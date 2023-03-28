@@ -1,4 +1,5 @@
 export const environment = {
     production: false,
-    url: 'http://localhost:5164/api/'
+    url1: 'http://localhost:5164/api/',
+    url:'https://docreplacer.azurewebsites.net/api/'
 };
