@@ -1,0 +1,1 @@
+copy-item src/GenerateContract/GenerateContractWeb/dist/generate-contract-web/*.* src/GenerateContract/GenerateContractWebAPI/wwwroot/
