@@ -33,9 +33,11 @@ jobs:
           cd GenerateContractWeb
           npm install
           npm run build
+
       - name: Script
         run: ./copyOutputAngularToNetCore.ps1
         shell: pwsh
+        
       - name: Build with dotnet
         run: |
           cd src
