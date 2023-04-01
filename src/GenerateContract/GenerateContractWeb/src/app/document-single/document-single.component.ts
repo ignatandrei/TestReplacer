@@ -72,9 +72,9 @@ export class DocumentSingleComponent implements OnInit{
         for (let index = 0; index < it.length; index++) {
           const element = it[index];
           var defValue = '';
-          if(!environment.production){
-            defValue = 'please replace ' + element;
-          }
+          // if(!environment.production){
+          //   defValue = 'please replace ' + element;
+          // }
           
           this.replacements.set(element, defValue);
         }

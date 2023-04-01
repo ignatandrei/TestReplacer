@@ -1,20 +1,19 @@
-<p>List of documents</p>
-
 Number of documents: {{contracts.length}}
 
 <ul class="heroes">
     <li *ngFor="let contract of contracts">
         <button [disabled]="isLoading" type="button"
-        (click)="Load(contract)">
-        
-        Load {{contract.DisplayName}}</button>
-        <br />
+        (click)="Load(contract)"   mat-raised-button color="primary">
+        <mat-icon aria-hidden="false" aria-label="Save" fontIcon="arrow_downward"></mat-icon>
+       
+        {{contract.DisplayName}}</button>
+    <p></p>
     </li>
   </ul>
 
 
   <div  >
-    <h1>{{isLoading? "!Please Wait to load !" +NameContract : "Contracts for "+NameContract}}</h1>
+    <h1>{{isLoading? "!Asteptati incarcarea !" +NameContract : "Document "+NameContract}}</h1>
     <h1 *ngIf="errMessage.length>1">>{{errMessage   }}</h1>
     <table *ngIf="!isLoading">
         <tr><td>Nr</td><td>Name</td><td>Value</td></tr>
@@ -22,11 +21,15 @@ Number of documents: {{contracts.length}}
         <tr *ngFor="let item of replacements.keys();let i = index">
             <td>{{i+1}}</td>
             <td>{{item}}</td>
-            <td><input   (keyup)="onChangeRep($event,item)" value="{{replacements.get(item)}}" placeholder="add value"/></td>
+            <td><input   (keyup)="onChangeRep($event,item)" value="{{replacements.get(item)}}" placeholder=""/></td>
         </tr>
     </table>
 
-    <button type="button" (click)="Save()">Save</button>
+    <button type="button" (click)="Save()"   mat-raised-button color="accent">
+
+        <mat-icon aria-hidden="false" aria-label="Save" fontIcon="save"></mat-icon>
+        Salveaza
+    </button>
   </div>
 
 
