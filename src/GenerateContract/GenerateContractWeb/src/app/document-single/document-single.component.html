@@ -1,28 +1,32 @@
-Number of documents: {{contracts.length}}
+<h1 *ngIf="!isLoading">Number of documents: {{contracts.length}}</h1>
 
-<ul class="heroes">
-    <li *ngFor="let contract of contracts">
+  <mat-grid-list cols="5" rowHeight="50px" >
+    <mat-grid-tile *ngFor="let contract of contracts;let item=index" >
         <button [disabled]="isLoading" type="button"
         (click)="Load(contract)"   mat-raised-button color="primary">
-        <mat-icon aria-hidden="false" aria-label="Save" fontIcon="arrow_downward"></mat-icon>
-       
+        <mat-icon *ngIf="contract.DisplayName != NameContract">arrow_downward</mat-icon>
+        <mat-icon *ngIf="contract.DisplayName == NameContract">check_circle</mat-icon>
+        
         {{contract.DisplayName}}</button>
-    <p></p>
-    </li>
-  </ul>
+    </mat-grid-tile>
+  </mat-grid-list>
 
-
+ 
   <div  >
     <h1>{{isLoading? "!Asteptati incarcarea !" +NameContract : "Document "+NameContract}}</h1>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
     <h1 *ngIf="errMessage.length>1">>{{errMessage   }}</h1>
-    <table *ngIf="!isLoading">
-        <tr><td>Nr</td><td>Name</td><td>Value</td></tr>
-
+    <table *ngIf="!isLoading" class="replacerElements">
+        <thead>
+        <tr><th>Nr</th><th>Nume</th><th>Valoare</th></tr>
+    </thead>
+    <tbody>
         <tr *ngFor="let item of replacements.keys();let i = index">
             <td>{{i+1}}</td>
             <td>{{item}}</td>
             <td><input   (keyup)="onChangeRep($event,item)" value="{{replacements.get(item)}}" placeholder=""/></td>
         </tr>
+    </tbody>
     </table>
 
     <button type="button" (click)="Save()"   mat-raised-button color="accent">

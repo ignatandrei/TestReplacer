@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatChipSelectionChange } from '@angular/material/chips';
 import { environment } from 'src/environments/environment';
 import { ContractData } from '../contract';
 
@@ -29,6 +30,7 @@ export class DocumentSingleComponent implements OnInit{
 
   
   getContracts(): void {
+    this.isLoading=true;
     this.contractService.getDocuments()
     .subscribe(c => {
       this.contracts = c.map(a=>new Contract(a));
@@ -55,7 +57,7 @@ export class DocumentSingleComponent implements OnInit{
   public onChangeRep(event: any, key: string): void {
     this.replacements.set(key, event.target.value);
   }
-
+  
   public replArray():string[] {
     return Array.from(this.replacements.keys());
   }
