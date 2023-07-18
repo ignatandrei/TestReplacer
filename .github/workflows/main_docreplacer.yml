@@ -21,75 +21,37 @@ jobs:
         with:
           dotnet-version: '7.x'
           include-prerelease: true
-      
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.13.0'
-      - name: Build with npm
-        run: |
-          cd src
-          cd GenerateContract
-          cd GenerateContractWeb
-          npm install
-          npm run build
 
-      - name: Script
-        run: ./copyOutputAngularToNetCore.ps1
-        shell: pwsh
-        
       - name: Build with dotnet
-        run: |
-          cd src
-          cd GenerateContract
-          dotnet build
+        run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: |
-          cd src
-          cd GenerateContract
-          cd GenerateContractWebAPI
-          dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
-   
-          
-      - name: dotnet publish for win64
-        run: |
-          cd src
-          cd GenerateContract
-          cd GenerateContractWebAPI
-          dotnet publish -c Release -r win-x64 -o ${{env.DOTNET_ROOT}}/myappWin64
 
-      - name: 'Upload artifact'
-        uses: actions/upload-artifact@v2
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
         with:
-          name: testReplaces_${{github.run_number}}
-          path: ${{env.DOTNET_ROOT}}/myappWin64
-          retention-days: 1
+          name: .net-app
 
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   environment:
-  #     name: 'Production'
-  #     url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
-  #   steps:
-  #     - name: Download artifact from build job
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #         name: .net-app
-
-  #     - name: Deploy to Azure Web App
-  #       id: deploy-to-webapp
-  #       uses: azure/webapps-deploy@v2
-  #       with:
-  #         app-name: 'docReplacer'
-  #         slot-name: 'Production'
-  #         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6FB095CD06134B95AAFC74304105EAD0 }}
-  #         package: .
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'docReplacer'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6C95AEDFD6B542DFAC4806BA01C08AB4 }}
+          package: .
