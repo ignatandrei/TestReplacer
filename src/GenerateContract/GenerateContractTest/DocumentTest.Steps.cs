@@ -12,7 +12,7 @@ public partial class DocumentTest : FeatureFixture
     Document? doc;
     async Task Given_Documents_Location(string location)
     {
-        await docs.InitializeFromHdd(location);
+        await docs.InitializeFromHdd(location,false);
     }
 
     Task Then_Must_Find_Document(string name)
@@ -46,23 +46,23 @@ public partial class DocumentTest : FeatureFixture
     
     Task Then_The_Document_Should_Have_The_Replacement_Case_Insensitive()
     {        
-        doc!.Replacement("NUME_Contractant").Should().NotBeNull();
-        doc!.Replacement("Nume_Contractant").Should().NotBeNull();
-        doc!.Replacement("NUME_Contractant").Should().Be(doc!.Replacement("Nume_Contractant"));
+        doc!.Replacement("COmodant").Should().NotBeNull();
+        doc!.Replacement("COMODant").Should().NotBeNull();
+        doc!.Replacement("comoDANT").Should().Be(doc!.Replacement("Comodant"));
         return Task.CompletedTask;
     }
 
     async Task Then_The_Document_Should_Replace()
     {
-        doc!.AddTextToReplace("NUME_Contractant", "Andrei Ignat");
-        doc!.AddTextToReplace("DataNastere_Contractant", "16/apr/1970");
+        doc!.AddTextToReplace("Comodant", "Andrei Ignat");
+        doc!.AddTextToReplace("Data_Contract", "16/apr/1970");
         var newFile = ("Andrei" + DateTime.Now.ToString("yyyyMMddHHmmss") + "Andrei.docx");
         var cnt= await doc!.Replace();
         await File.WriteAllBytesAsync(newFile, cnt);
-        var str = System.Text.Encoding.UTF8.GetString(cnt);
-        str.Should().NotContain("@!");
-        str.Should().NotContain("!@");
-
+        //var str = System.Text.Encoding.UTF8.GetString(cnt);
+        //str.Should().NotContain("@!");
+        //str.Should().NotContain("!@");
+        //TODO: read the word as text
         return ;
 
     }

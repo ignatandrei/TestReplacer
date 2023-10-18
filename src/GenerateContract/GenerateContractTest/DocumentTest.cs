@@ -7,9 +7,9 @@ namespace GenerateContractTest;
 public partial class DocumentTest
 {
     [Scenario]
-    [InlineData("Comodat", "NUME_Contractant",1)]
-    [InlineData("Comodat", "DataNastere_Contractant",1)]
-    [InlineData("Comodat", "alabala", 0)]
+    [InlineData("AndreiIgnat", "Comodant", 1)]
+    [InlineData("AndreiIgnat", "Data_Contract",1)]
+    [InlineData("AndreiIgnat", "alabala", 0)]
     public async Task ExistsReplacements(string name, string term, int occurences)
     {
         await Runner.RunScenarioAsync(
@@ -21,7 +21,7 @@ public partial class DocumentTest
 
     }
     [Scenario]
-    [InlineData("Comodat")]
+    [InlineData("AndreiIgnat")]
     public async Task ExistsReplacementsInsensitive(string name)
     {
         await Runner.RunScenarioAsync(
@@ -35,7 +35,7 @@ public partial class DocumentTest
 
 
     [Scenario]
-    [InlineData("Comodat")]
+    [InlineData("AndreiIgnat")]
 
     public async Task Replace(string name)
     {

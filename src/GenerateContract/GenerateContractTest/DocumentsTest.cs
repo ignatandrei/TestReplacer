@@ -8,12 +8,12 @@ public partial class DocumentsTest
     {
         await Runner.RunScenarioAsync(
                _ => Given_Documents_Location("docs"),
-               _ => Then_Must_Find_Documents(1)
+               _ => Then_Must_Find_Documents(1) 
                );
 
     }
     [Scenario]
-    [InlineData("Comodat",1)]
+    [InlineData("AndreiIgnat",1)]
     [InlineData("asda@2312", 0)]
     public async Task FindDocuments(string name , int nr)
     {

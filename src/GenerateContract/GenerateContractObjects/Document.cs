@@ -1,10 +1,12 @@
 ﻿
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
+using System.Diagnostics;
 using System.Xml.Linq;
 
 namespace GenerateContractObjects;
 
+[DebuggerDisplay("{Location}")]
 public class Document
 {
     

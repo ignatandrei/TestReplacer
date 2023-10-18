@@ -25,7 +25,7 @@ public class DocumentList
         return  docs.Select(it=> new Document(it)).ToArray();
     }
 
-    public Task InitializeFromHdd(string location)
+    public Task InitializeFromHdd(string location, bool excludeTest)
     {
         ArgumentNullException.ThrowIfNullOrEmpty(nameof(location));
         if(!Directory.Exists(location))
@@ -34,7 +34,13 @@ public class DocumentList
         }
         this.location = location;
         Documents = Directory.GetFiles(location, "*.doc?");
-
+        if (excludeTest)
+        {
+            Documents =
+                Documents
+                .Where(it => !Path.GetFileNameWithoutExtension(it).StartsWith("Test"))
+                .ToArray();
+        }
         return Task.CompletedTask;
     }
 }

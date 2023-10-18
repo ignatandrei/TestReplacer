@@ -6,12 +6,13 @@ public partial class DocumentsTest: FeatureFixture
     DocumentList docs = new();
     async Task Given_Documents_Location(string location)
     {
-        await docs.InitializeFromHdd(location);
+        await docs.InitializeFromHdd(location,false);
     }
-    Task Then_Must_Find_Documents(long nr)
+    Task Then_Must_Find_Documents(int nr)
     {
-        
-        docs.Count().Should().Be(nr);
+        var comodat = docs.FindDocument("AndreiIgnat");
+        comodat.Should().NotBeNullOrEmpty();
+        comodat!.Count().Should().Be(nr);
         return Task.CompletedTask;
     }
     Task Then_Must_Find_Document(string name, int number)

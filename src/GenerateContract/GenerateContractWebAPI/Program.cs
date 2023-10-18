@@ -9,7 +9,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<DocumentList>(sp =>
 {
     DocumentList d = new ();
-    d.InitializeFromHdd("docs");
+    d.InitializeFromHdd("docs",true);
     return d;
 });
 builder.Services.AddCors();
