@@ -44,11 +44,11 @@ public partial class DocumentTest : FeatureFixture
     }
 
     
-    Task Then_The_Document_Should_Have_The_Replacement_Case_Insensitive()
+    Task Then_The_Document_Should_Have_The_Replacement_Case_Insensitive(string replacement)
     {        
-        doc!.Replacement("COmodant").Should().NotBeNull();
-        doc!.Replacement("COMODant").Should().NotBeNull();
-        doc!.Replacement("comoDANT").Should().Be(doc!.Replacement("Comodant"));
+        doc!.Replacement(replacement.ToLower()).Should().NotBeNull();
+        doc!.Replacement(replacement.ToUpper()).Should().NotBeNull();
+        doc!.Replacement(replacement.ToLower()).Should().Be(doc!.Replacement(replacement));
         return Task.CompletedTask;
     }
 

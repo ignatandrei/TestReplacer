@@ -9,7 +9,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<DocumentList>(sp =>
 {
     DocumentList d = new ();
-    d.InitializeFromHdd("docs",true);
+    var h = sp.GetRequiredService<IWebHostEnvironment>();
+    string folder = "docs";
+    //if (h.IsDevelopment())
+    //    folder = @"bin\Debug\net7.0\docs";
+
+    d.InitializeFromHdd(folder,true);
     return d;
 });
 builder.Services.AddCors();

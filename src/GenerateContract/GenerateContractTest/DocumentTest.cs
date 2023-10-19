@@ -21,14 +21,14 @@ public partial class DocumentTest
 
     }
     [Scenario]
-    [InlineData("AndreiIgnat")]
-    public async Task ExistsReplacementsInsensitive(string name)
+    [InlineData("AndreiIgnat","Comodant")]
+    public async Task ExistsReplacementsInsensitive(string name, string replacement)
     {
         await Runner.RunScenarioAsync(
                _ => Given_Documents_Location("docs"),
                _ => Then_Must_Find_Document(name),
                _=> Then_The_Document_Should_Have_Replacements(),
-               _=> Then_The_Document_Should_Have_The_Replacement_Case_Insensitive()
+               _=> Then_The_Document_Should_Have_The_Replacement_Case_Insensitive("Comodant")
                );
 
     }
